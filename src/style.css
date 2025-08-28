@@ -1,0 +1,86 @@
+/* контейнер под все пространство игры */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 40px;
+}
+
+/* доска */
+.board {
+  display: grid;
+  grid-template-columns: repeat(4, 100px);
+  grid-template-rows: repeat(4, 100px);
+  gap: 8px;
+  margin: 24px;
+}
+
+.cell {
+  width: 100px;
+  height: 100px;
+  background: #e8e8e8;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  user-select: none;
+}
+
+/* заголовок */
+h1 {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* условие игры */
+.rules {
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  color: #222;
+  text-align: center;
+  margin-top: 20px;
+  padding: 10px 20px;
+  border: 2px dashed #444;
+  border-radius: 8px;
+  display: inline-block;
+  background-color: #f9f9f9; 
+}
+
+/* гоблин */
+.goblin {
+  width: 80px;
+  height: 80px;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* молоток */
+:root {
+  --hammer-size: 50px; 
+  --hx: 40px;            /* смещение по X */
+  --hy: 10px;            /* смещение по Y */
+}
+
+body {
+  cursor: none;
+  margin: 0;
+}
+
+.hammer {
+  position: fixed;
+  height: var(--hammer-size);
+  z-index: 999;
+  transform: translate(calc(-1 * var(--hx)), calc(-1 * var(--hy)));
+  pointer-events: none;
+}
+
+.hammer.hit {
+  animation: hit-effect 0.15s ease;
+}
+
+@keyframes hit-effect {
+  from { transform: translate(calc(-1 * var(--hx)), calc(-1 * var(--hy))) rotate(0deg); }
+  to   { transform: translate(calc(-1 * var(--hx)), calc(-1 * var(--hy))) rotate(-40deg); }
+}
+

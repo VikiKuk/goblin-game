@@ -1,0 +1,23 @@
+node_modules/
+
+dist/
+
+coverage/
+
+# Логи
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# macOS системный файл
+.DS_Store
+
+# Папка настроек VS Code
+.vscode/
+
+# окружение 
+.env
+.env.local
+
+
+package-lock.json
