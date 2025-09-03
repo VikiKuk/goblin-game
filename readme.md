@@ -1,4 +1,4 @@
-![CI](https://github.com/VikiKuk/sort-heroes-by-health/actions/workflows/node.js.yml/badge.svg)
+![CI](https://github.com/VikiKuk/goblin-game/actions/workflows/node.js.yml/badge.svg)
 
 # 🔨 Goblin Game
 
