@@ -47,6 +47,47 @@ h1 {
   background-color: #f9f9f9; 
 }
 
+.hud {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  margin: 8px 0 16px;
+  font: 16px/1.2 Arial, sans-serif;
+}
+
+.modal.hidden { display: none; }
+
+.modal {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.5);
+  display: grid; place-items: center;
+  z-index: 1000;
+}
+.modal__card {
+  background: #fff; color: #222;
+  padding: 20px 24px; border-radius: 12px;
+  min-width: 260px;
+  text-align: center;
+}
+.modal__card button {
+  margin-top: 12px; padding: 8px 14px;
+  border: 0; border-radius: 8px;
+  background: #222; color: #fff; cursor: pointer;
+}
+
+#modal-title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+#modal-text {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+
 /* гоблин */
 .goblin {
   width: 80px;

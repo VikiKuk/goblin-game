@@ -1,9 +1,10 @@
 export default class Board {
-  constructor({ mount, rows = 4, cols = 4, imgSrc }) {
+  constructor({ mount, rows = 4, cols = 4, imgSrc, imgAlt = 'Гоблин' }) {
     this.mount = mount;
     this.rows = rows;
     this.cols = cols;
     this.imgSrc = imgSrc;
+    this.imgAlt = imgAlt;
 
     this.boardEl = null;
     this.cells = [];
@@ -13,41 +14,42 @@ export default class Board {
   setup() {
     const board = document.createElement('div');
     board.className = 'board';
-    this.mount.appendChild(board);
+    this.mount.append(board);
     this.boardEl = board;
 
     const frag = document.createDocumentFragment();
     for (let i = 0; i < this.rows * this.cols; i += 1) {
       const c = document.createElement('div');
       c.className = 'cell';
-      frag.appendChild(c);
+      frag.append(c);
       this.cells.push(c);
     }
-    board.appendChild(frag);
+    board.append(frag);
 
     // гоблин
     const img = document.createElement('img');
     img.className = 'goblin';
     img.src = this.imgSrc;
-    img.setAttribute('hidden', '');       // гоблин изначально скрыт
+    img.alt = this.imgAlt; 
+    img.draggable = false;
     this.goblinEl = img;
   }
 
-  // показ гоблина в указанной ячейке (изменение родителя и минус hidden)
+  // показ гоблина в указанной ячейке
   showAt(index) {
-    const img = this.goblinEl;
-    img.removeAttribute('hidden');
-    this.cells[index].appendChild(img);
+    this.cells[index].append(this.goblinEl);
   }
 
-  // спрятать гоблина после клика пользователя на него
-  hide() {
-    if (this.goblinEl) {
-      this.goblinEl.setAttribute('hidden', '');
+  // убираем гоблина после клика пользователя на него
+  removeGoblin() {
+    this.goblinEl?.remove();         
     }
-  }
 
   cellCount() {
     return this.cells.length; //для Game возвращает кол-во ячеек
+  }
+
+   cellFromEvent(e) {
+    return e.target.closest('.cell');
   }
 }

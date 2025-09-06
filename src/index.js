@@ -3,7 +3,12 @@ import Game from './Game.js';
 import goblinImg from './goblin.png';
 import hammerImg from './hammer.png';
 
-const root = document.querySelector('#game-root');
+// остановка предыдущей игры 
+if (window.__goblinGame) {
+  window.__goblinGame.destroy?.();
+}
+
+const root = document.getElementById('game-root') || document.body;
 const game = new Game({
   mount: root,
   rows: 4,
@@ -11,6 +16,8 @@ const game = new Game({
   imgSrc: goblinImg,
   interval: 1000,
 });
+
+window.__goblinGame = game;
 
 game.start();
 
