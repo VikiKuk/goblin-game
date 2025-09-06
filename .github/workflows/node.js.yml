@@ -1,6 +1,7 @@
 name: CI
 
 on:
+  workflow_dispatch:
   push:
     branches: [ master ]
   pull_request:
@@ -18,8 +19,11 @@ jobs:
           cache: 'yarn'
 
       - run: yarn install --frozen-lockfile
+
+      # ⬇️ сборка проекта
       - run: yarn build
 
+      # ⬇️ деплой на GitHub Pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
