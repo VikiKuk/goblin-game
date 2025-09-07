@@ -26,7 +26,7 @@ const hammer = document.createElement('img');
 hammer.src = hammerImg;
 hammer.classList.add('hammer');
 hammer.draggable = false;
-document.body.appendChild(hammer);
+document.body.append(hammer);
 document.addEventListener('mousemove', (e) => {
   hammer.style.left = `${e.clientX}px`;
   hammer.style.top  = `${e.clientY}px`;
