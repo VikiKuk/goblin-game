@@ -43,6 +43,8 @@ export default class Game {
     // бинды
     this.onBoardClick = this.onBoardClick.bind(this);
     this.onModalBtn = this.onModalBtn.bind(this);
+
+    this.ignoreWrongClicksUntil = 0; //игнор повторного клика после неудачи
   }
 
   // подготовка DOM
@@ -92,11 +94,24 @@ export default class Game {
     if (this.isOver) return;
 
     if (this.roundActive) {
-      this.misses += 1;               // игрок не успел кликнуть
-      this.updateHud();
-      if (this.checkLose()) return;
+      const lost = this.handleTimeoutMiss();
+      if (lost) return;
     }
+    this.showNextGoblin();
+  }
 
+  handleTimeoutMiss() {
+    console.log('Miss: timeout')
+    this.misses += 1;
+    this.roundActive = false;
+    this.board.removeGoblin();
+    this.updateHud();
+    this.ignoreWrongClicksUntil = Date.now() + 150;
+
+    return this.checkLose();
+  }
+
+  showNextGoblin() {
     const idx = this.nextIndex();
     this.board.showAt(idx);
     this.currentIndex = idx;
@@ -138,14 +153,23 @@ export default class Game {
       if (this.checkWin()) return;
 
       // 4) перезапуск тайминга от «сейчас»: новый ритм + моментальный показ
-      this.scheduleNextSpawn(0);
+      this.scheduleNextSpawn();
 
-    } else {
-        // клик по пустой ячейке — промах
+    } else if (this.roundActive) {
+        if (Date.now() < this.ignoreWrongClicksUntil) {
+        return;
+        }
+
+        console.log('MISS: empty click');
         this.misses += 1;
+        this.roundActive = false;
+        this.board.removeGoblin();
         this.updateHud();
-        this.checkLose();
-      }
+
+        if (this.checkLose()) return;
+
+        this.scheduleNextSpawn();
+    }
   }
 
   // обновление табло
